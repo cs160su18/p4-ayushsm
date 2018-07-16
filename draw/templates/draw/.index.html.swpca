@@ -1,0 +1,384 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>P4 Drawing</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'draw/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'draw/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'draw/vendor/paper/paper-full.min.js' %}"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/alexgibson/shake.js/master/shake.js"></script>
+
+    <style type="text/css">
+    </style>
+
+</head>
+<style>
+  #myCanvas {
+    border-style: solid;
+  }
+</style>
+<body>
+    <!-- You may change the dimensions of this canvas -->
+    <canvas id="myCanvas" width="1440px" height="800px"></canvas>
+  
+<!--     <div id="large" style="width:100%; height: 100%; margin: 0px auto; padding: 0px; background-color: skyblue">
+      <div class="row">
+        <div class="col-4" style="font-size:25px;">
+          4:37PM
+        </div>
+        <div class="col-4" style="font-size:65px; font-weight: bold; text-align:center;">
+          Honolulu, HI
+        </div>
+        <div class="col-4" style="font-size:25px; text-align:right">
+          82°
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px; margin-left: 30px">
+        <div class="col-12" style="font-size:35px; font-weight: bold">
+          LIVE FEED
+        </div>
+      </div>
+      <div class="row" style="margin-top: 25px; margin-left: 30px">
+        <div class="col-9" style="font-size:25px; ">
+          → "The weather here is so great! But it's so crowded here!!"
+        </div>
+        <div class="col-3" style="font-size:25px;font-style: italic;">
+          - Waikiki Beach
+        </div>
+      </div>
+      <div class="row" style="margin-top: 30px; margin-left: 30px">
+        <div class="col-9" style="font-size:25px; ">
+          → "So much history here! Everyone needs to check this place out."
+        </div>
+        <div class="col-3" style="font-size:25px; font-style: italic;">
+          - USS Arizona Memorial
+        </div>
+      </div>
+      <div class="row" style="margin-top: 30px; margin-left: 30px">
+        <div class="col-9" style="font-size:25px; ">
+          → "So much history here! Everyone needs to check this place out."
+        </div>
+        <div class="col-3" style="font-size:25px; font-style: italic;">
+          - USS Arizona Memorial
+        </div>
+      </div>
+      <div class="row" style="margin-top: 30px; margin-left: 30px">
+        <div class="col-1" style="font-size:25px; padding-right: 0px">
+          →
+        </div>
+        <div class="col-8" style="font-size:25px; padding-left: 0px">
+          <div style="height:150px; width: 750px; border-style: solid; text-align: center; border-radius: 15%; font-style: italic;">
+            Posted Image at Museum of Art
+          </div>
+        </div>
+        <div class="col-3" style="font-size:25px;">
+        </div>
+      </div>
+      <div class="row" style="margin-top: 25px; margin-left: 30px; margin-top:0px">
+        <div class="col-1" style="font-size:25px; padding-right: 0px">
+        </div>
+        <div class="col-8" style="font-size:25px; text-align: center;">
+          "look at this photo I just took!"
+        </div>
+        <div class="col-3" style="font-size:25px; font-style: italic;">
+          - Museum of Art
+        </div>
+      </div>
+      <div class="row" style="margin-top: 30px; margin-left: 30px;" >
+        <div class="col-9" style="font-size:25px; ">
+          → "AMAZING WEATHER! No crowd today for some reason..."
+        </div>
+        <div class="col-3" style="font-size:25px; font-style: italic;">
+          - Diamond Head
+        </div>
+      </div>
+      <div class="row" style="margin-top: 20px; margin-left: 30px; margin-bottom: 25px" >
+        <div class="col-12" style="color: green; font-weight: bold;font-size:15px; text-align: center">
+          Hotel Screen
+        </div>
+      </div>
+    </div>
+  
+    <div id="large1" style="width:100%; height: 100%; margin: 0px auto; padding: 0px; background-color: skyblue">
+      <div class="row">
+        <div class="col-4" style="font-size:25px;">
+          4:39PM
+        </div>
+        <div class="col-4" style="font-size:55px; font-weight: bold; text-align:center;">
+          Waikiki Beach
+        </div>
+        <div class="col-4" style="font-size:25px; text-align:right">
+          86°
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px; margin-left: 30px">
+        <div class="col-12" style="font-size:35px; font-weight: bold">
+          LIVE FEED
+        </div>
+      </div>
+      <div class="row" style="margin-top: 25px; margin-left: 30px">
+        <div class="col-9" style="font-size:25px; ">
+          → "The weather here is so great! But it's so crowded here!!"
+        </div>
+        <div class="col-3" style="font-size:25px; font-style: italic;">
+          - 4:32PM
+        </div>
+      </div>
+      <div class="row" style="margin-top: 30px; margin-left: 30px">
+        <div class="col-9" style="font-size:25px; ">
+          → "These waves are perfect for surfing today."
+        </div>
+        <div class="col-3" style="font-size:25px; font-style: italic;">
+          - 4:25PM
+        </div>
+      </div>
+      <div class="row" style="margin-top: 30px; margin-left: 30px">
+        <div class="col-9" style="font-size:25px; ">
+          → "So many people.. I can barely find a spot"
+        </div>
+        <div class="col-3" style="font-size:25px; font-style: italic;">
+          - 3:54PM
+        </div>
+      </div>
+      <div class="row" style="margin-top: 30px; margin-left: 30px">
+        <div class="col-1" style="font-size:25px; padding-right: 0px">
+          →
+        </div>
+        <div class="col-8" style="font-size:25px; padding-left: 0px">
+          <div style="height:150px; width: 750px; border-style: solid; text-align: center; border-radius: 15%; font-style: italic;">
+            Posted Image at Waikiki Beach
+          </div>
+        </div>
+        <div class="col-3" style="font-size:25px;">
+        </div>
+      </div>
+      <div class="row" style="margin-top: 25px; margin-left: 30px; margin-top:0px">
+        <div class="col-1" style="font-size:25px; padding-right: 0px">
+        </div>
+        <div class="col-8" style="font-size:25px; text-align: center;">
+          "my surfboard today! looking real good"
+        </div>
+        <div class="col-3" style="font-size:25px; font-style: italic;">
+          - 3:52PM
+        </div>
+      </div>
+      <div class="row" style="margin-top: 80px; margin-left: 30px;" >
+        <div class="col-12" style="font-size:25px; text-align: center">
+          Current Crowd-Level: <span style="color:red;">Very High</span>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px; margin-left: 30px; margin-bottom: 5px" >
+        <div class="col-12" style="color: green; font-weight: bold;font-size:15px; text-align: center">
+          Hotel Screen
+        </div>
+      </div>
+    </div>
+  
+    <div id="small" style="width:100%; height: 100%; margin: 0px auto; padding: 0px; background-color: skyblue">
+      <div class="row">
+        <div class="col-12" style="font-size:75px; font-weight:bold; text-align: center;">
+          Honolulu
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" style="font-size:40px; margin-left: 50px">
+          Select a Location
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" style="font-size:40px; margin-left: 50px">
+          <button type="button" class="btn btn-light" onclick="changeLarge()">Waikiki Beach</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" style="font-size:40px; margin-left: 50px">
+          <button type="button" class="btn btn-light">USS Arizona Memorial</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" style="font-size:40px; margin-left: 50px">
+          <button type="button" class="btn btn-light">Diamond Head</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" style="font-size:40px; margin-left: 50px;">
+          <button type="button" class="btn btn-light">Museum of Art</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" style="font-size:40px; margin-left: 50px;">
+          <button type="button" class="btn btn-light" onclick="changeBack()">Go Back</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" style="font-size:15px; text-align:center; margin-bottom: 225px">
+          Phone Screen
+        </div>
+      </div>
+    </div> -->
+  
+</body>
+<script>
+
+    // setting up the canvas and one paper tool
+    var canvas = document.getElementById('myCanvas');
+    paper.setup(canvas);
+    var tool = new paper.Tool();
+
+    // getting the URL (you may want to use for Exercise 3)
+    var url = window.location.href;
+  
+    // BEGIN CHANGES
+    // create a new websocket connecting to the server
+    var socket = new WebSocket('ws://p4-ayushsm-ayushsm511991.codeanyapp.com:8765/');
+    
+//     // BEGIN CUSTOM
+//     if (url == "http://p4-ayushsm-ayushsm511991.codeanyapp.com:8000/draw/?size=large") {
+//         document.getElementById("small").style.display = "none";
+//         document.getElementById("large1").style.display = "none";
+//     } else {
+//         document.getElementById("large").style.display = "none";
+//         document.getElementById("large1").style.display = "none";
+//     };
+  
+//     function changeLarge() {
+//       var msg = {
+//         large1: 0,
+//         back: 0
+//       };
+//       msg.large1 = 1;
+//       socket.send(JSON.stringify(msg));
+//     };
+    
+//     function changeBack() {
+//       var msg = {
+//         large1: 0,
+//         back: 0
+//       };
+//       msg.back = 1;
+//       socket.send(JSON.stringify(msg));
+//     };
+  
+//     socket.onmessage = function(receivedMessage) {
+//       var message = JSON.parse(receivedMessage.data);
+//       if (url == "http://p4-ayushsm-ayushsm511991.codeanyapp.com:8000/draw/?size=large") {
+//         if (message.large1) {
+//           document.getElementById("small").style.display = "none";
+//           document.getElementById("large").style.display = "none";
+//           document.getElementById("large1").style.display = "block";
+//         }
+//         if (message.back) {
+//           document.getElementById("small").style.display = "none";
+//           document.getElementById("large").style.display = "block";
+//           document.getElementById("large1").style.display = "none";
+//         }
+//       }
+//     }
+  
+//     socket.onclose = function(e) {
+//         console.error('Chat socket closed unexpectedly');
+//     };
+//     // END CUSTOM
+  
+    var path = new paper.Path();
+    path.strokeColor = 'black';
+    var colors = ["AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige","Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown","BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral","CornflowerBlue","Cornsilk","Crimson","Cyan","DarkBlue","DarkCyan","DarkGoldenRod","DarkGray","DarkGrey","DarkGreen","DarkKhaki","DarkMagenta","DarkOliveGreen","Darkorange","DarkOrchid","DarkRed","DarkSalmon","DarkSeaGreen","DarkSlateBlue","DarkSlateGray","DarkSlateGrey","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue","DimGray","DimGrey","DodgerBlue","FireBrick","FloralWhite","ForestGreen","Fuchsia","Gainsboro","GhostWhite","Gold","GoldenRod","Gray","Grey","Green","GreenYellow","HoneyDew","HotPink","IndianRed","Indigo","Ivory","Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue","LightCoral","LightCyan","LightGoldenRodYellow","LightGray","LightGrey","LightGreen","LightPink","LightSalmon","LightSeaGreen","LightSkyBlue","LightSlateGray","LightSlateGrey","LightSteelBlue","LightYellow","Lime","LimeGreen","Linen","Magenta","Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen","MediumSlateBlue","MediumSpringGreen","MediumTurquoise","MediumVioletRed","MidnightBlue","MintCream","MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive","OliveDrab","Orange","OrangeRed","Orchid","PaleGoldenRod","PaleGreen","PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff","Peru","Pink","Plum","PowderBlue","Purple","Red","RosyBrown","RoyalBlue","SaddleBrown","Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue","SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan","Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke","Yellow","YellowGreen"];
+    var color = colors[Math.floor(Math.random() * (colors.length))];
+    var prev = {};
+    tool.onMouseMove = function(event) { 
+      var msg = {
+        id: "path",
+        color: color,
+        point: event.point
+      };
+      if (url == "http://p4-ayushsm-ayushsm511991.codeanyapp.com:8000/draw/?size=small" || url == "http://p4-ayushsm-ayushsm511991.codeanyapp.com:8000/draw/") {
+        socket.send(JSON.stringify(msg));
+      }
+    };
+  
+    // getting the URL (you may want to use for Exercise 3)
+    socket.onmessage = function(receivedMessage) {
+      var msg = JSON.parse(receivedMessage.data);
+      if (msg.id == "path") {
+        if ((msg.color in prev) === false) {
+          prev[msg.color] = new paper.Path();
+          prev[msg.color].strokeColor = msg.color;
+        }
+        path = prev[msg.color].add(new paper.Point(msg.point[1], msg.point[2]));
+        if (url == "http://p4-ayushsm-ayushsm511991.codeanyapp.com:8000/draw/?size=small" && color != msg.color) {
+          prev[msg.color].visible = false;
+        }     
+      } else if (msg.id == "remove") {
+        prev[msg.color].remove();
+        prev[msg.color] = new paper.Path();
+        prev[msg.color].strokeColor = msg.color;
+      } else {
+        prev[msg.color].strokeColor = colors[Math.floor(Math.random() * (colors.length))];
+      }
+    };
+  
+    socket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+  
+    var shake = new Shake({threshold: 20});
+    shake.start();
+    window.addEventListener('shake', function(){
+        var msg = {
+          id: "remove",
+          color: color,
+        };
+        socket.send(JSON.stringify(msg));
+    }, false);
+  
+    window.addEventListener('deviceorientation', function(event) {
+        var msg = {
+          id: "change",
+          color: color,
+        }
+        if (event.gamma > 50) {
+          socket.send(JSON.stringify(msg));
+        }
+    }, true);
+  
+    // END CHANGES
+  
+  
+  /*
+    var colors = ["red", "darkblue", "green", "black", "gold"];
+    var color = colors[Math.floor(Math.random() * colors.length)];
+    var prevcolors = [];
+    tool.onMouseMove = function(event) {
+        console.log(event.on);
+        var msg = {
+            color: color,
+            point: event.point
+        };
+        socket.send(JSON.stringify(msg));
+    }
+    
+//     var path1 = new paper.Path();
+//     path1.strokeColor = 'black';
+    socket.onmessage = function(receivedMessage) {
+//         path1.add(receivedMessage.data);
+        path.strokeColor = JSON.parse(receivedMessage.data).color;
+        if (!((receivedMessage.data).color in prevcolors)) {
+          prevcolors[(receivedMessage.data).color] = new paper.Path();
+          prevcolors[(receivedMessage.data).color].strokeColor = (receivedMessage.data).color;
+        }
+        prevcolors[(receivedMessage.data).color].add(new paper.Point(JSON.parse(receivedMessage.data).point[1], JSON.parse(receivedMessage.data).point[2]));
+        path = prevcolors[(receivedMessage.data).color];
+//        path.add(new paper.Point(JSON.parse(receivedMessage.data).point[1], JSON.parse(receivedMessage.data).point[2]));
+//         console.log(JSON.parse(receivedMessage.data));
+        
+    };
+    
+
+    // end changes
+    */
+
+</script>
+</html>
